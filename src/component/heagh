@@ -1,0 +1,67 @@
+
+import { useEffect, useState } from 'react'
+import  Hell from './component/Hell'
+import './component/Play.css'
+
+const wincombo=[
+  [0,1,2],
+  [3,4,5],
+  [6,7,8]
+]
+
+
+
+function App() {
+  const [hells,setHells]=useState(['','','','','','','','',''])
+  const [go,setGo]=useState('circle');
+  const [winmasage,setWinmasage]=useState('')
+
+
+useEffect(()=>{
+  wincombo.forEach((combo)=>{
+   const wincircle=combo.every((hell)=>hells[hell]==='circle');
+   const wincross=combo.every((hell)=>hells[hell]==='cross');
+   if(wincircle){
+    setWinmasage('circle win!!')
+   }else if(wincross){
+    setWinmasage('cross win!!')
+
+   }
+  })
+
+},[hells])
+useEffect(()=>{
+  if(hells.every((hell)=>hell!=='')&&!winmasage){
+    setWinmasage('win drow !!');
+  }
+},[winmasage])
+
+useEffect(()=>{
+  if(winmasage){
+     const timer=setTimeout(()=>{
+      stratgame();
+     },1000)
+     return ()=> clearTimeout(timer)
+}},[hells,winmasage])
+const stratgame=()=>{
+  setHells(['','','','','','','','','']);
+  setGo('circle');
+  setWinmasage('')
+}
+
+  return (
+    <div className='container'>
+      <div className='content'>
+        {hells.map((hell,index)=>(
+        <Hell winmasage={winmasage} key={index} id={index} setHells={setHells} hell={hell} go={go} setGo={setGo} hells={hells} />
+        ))}
+     
+      </div>
+      <div>{winmasage}</div>
+      <div>{!winmasage&&`its win ${go} turn !!`}</div>
+
+    </div>
+  )
+}
+
+export default App
