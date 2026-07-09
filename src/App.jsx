@@ -58,10 +58,10 @@ const startgame=()=>{
       <div className='content'>
         {cells.map((cell ,index)=>(
           
-       <Cell winingmasage={winingmasage} cell={cell} id={index} key={index} cells={cells} setCells={setCells} go={go} setGo={setGo}/>
+       <Cell  winingmasage={winingmasage} cell={cell} id={index} key={index} cells={cells} setCells={setCells} go={go} setGo={setGo}/>
         ))}
       </div>
-      <div>{winingmasage}</div>
+      <div className='masage'>{winingmasage}</div>
       <div className='help'>{!winingmasage &&`its now ${go} turn!`}</div>
     </div>
   )
